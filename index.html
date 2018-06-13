@@ -1,12 +1,87 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>mobile-demo</title>
-  </head>
-  <body>
+    <title>cube-demo</title>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script>
+        var onDeviceReady = function () {
+            document.addEventListener(
+                "jpush.receiveRegistrationId",
+                function (event) {
+                    console.log("receiveRegistrationId" + JSON.stringify(event))
+                    alert("receiveRegistrationId" + JSON.stringify(event))
+                },
+                false
+            );
+            initiateUI();
+        };
+        var initiateUI = function () {
+            try {
+                window.JPush.init();
+                window.JPush.setDebugMode(true);
+                window.setTimeout(getRegistrationID, 1000);
+                if (device.platform != "Android") {
+                    window.JPush.setApplicationIconBadgeNumber(0);
+                }
+            } catch (exception) {
+            }
+        };
+        var getRegistrationID = function () {
+            window.JPush.getRegistrationID(onGetRegistrationID);
+        };
+
+        var onGetRegistrationID = function (data) {
+            try {
+                if (data.length == 0) {
+                    var t1 = window.setTimeout(getRegistrationID, 1000);
+                }
+            } catch (exception) {
+            }
+        };
+
+        var onOpenNotification = function (event) {
+            try {
+                var alertContent;
+                if (device.platform == "Android") {
+                    alertContent = event.alert;
+                } else {
+                    alertContent = event.aps.alert;
+                }
+            } catch (exception) {
+            }
+        };
+
+        var onReceiveNotification = function (event) {
+            try {
+                var alertContent;
+                if (device.platform == "Android") {
+                    alertContent = event.alert;
+                } else {
+                    alertContent = event.aps.alert;
+                }
+            } catch (exception) {
+            }
+        };
+        document.addEventListener('deviceready', onDeviceReady, false)
+        document.addEventListener(
+            'jpush.openNotification',
+            onOpenNotification,
+            false
+        )
+        document.addEventListener(
+            'jpush.receiveNotification',
+            onReceiveNotification,
+            false
+        )
+    </script>
+</head>
+
+<body>
     <div id="app"></div>
     <!-- built files will be auto injected -->
-  </body>
+</body>
+
 </html>

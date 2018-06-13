@@ -1,6 +1,6 @@
 # mobile-demo
 
-> 自己打一个自适应移动端布局的东西
+> 一个自适应移动端布局的demo
 
 ## Build Setup
 

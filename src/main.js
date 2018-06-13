@@ -5,13 +5,14 @@ import App from './App'
 import router from './router'
 import { init } from 'viewport-units-buggyfill'
 init()
+
 // require('viewport-units-buggyfill').init()
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
+    el: '#app',
+    router,
+    components: { App },
+    template: '<App/>'
 })
